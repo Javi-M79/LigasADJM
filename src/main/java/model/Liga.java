@@ -4,6 +4,7 @@ package model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,18 +19,26 @@ import java.io.Serializable;
 
 
 @Entity
+@Table(name = "ligas")
 public class Liga implements Serializable {
 
     @Id
-    @Column (name  = "id_liga")
+    @Column(name = "id_liga")
     private int id;
-    @Column
-    private String nombre_liga;
-    @Column
-    private String fecha_inicio;
-    @Column
-    private String fecha_fin;
+    @Column(name = "nombre_liga")
+    private String nombre;
+    @Column(name = "fecha_inicio")
+    private String fechaInicio;
+    @Column(name = "fecha_fin")
+    private String fechaFin;
 
 
+    public Liga(String nombre, String fechaInicio, String fechaFin) {
+
+        this.nombre = nombre;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+
+    }
 
 }
