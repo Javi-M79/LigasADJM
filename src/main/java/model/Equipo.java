@@ -11,10 +11,7 @@ Para ello deben tener:
  */
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +40,10 @@ public class Equipo implements Serializable {
     private String nombre;
     @Column
     private String ciudad;
+
+
+
+
 
     //CONSTRUCTOR SIN ID. YA QUE ES PRIMARY KEY Y ESTA EN LA DB DE MANERA INCREMENTAL
     public Equipo(String nombre, String ciudad) {
