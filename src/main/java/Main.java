@@ -1,3 +1,6 @@
+import controller.DAOEquipo;
+import controller.DAOLiga;
+import controller.DAOPartido;
 import database.HibernateUtil;
 import model.Equipo;
 import model.Liga;
@@ -5,19 +8,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class Main {
+
+
     public static void main(String[] args) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        //Creamos la sesion
-        Session session = sessionFactory.getCurrentSession();
-        // Activar la transaccion de objetos.
-        session.beginTransaction();
-        Liga liga = new Liga("Liga Española", "Agosto","Mayo" );
-        session.persist(liga);
-        session.getTransaction().commit();
-        session.close();
 
 
-        }
+        DAOEquipo operacionesEquipo = new DAOEquipo();
+        DAOLiga operacionesLigas = new DAOLiga();
+        DAOPartido operacionesPartido = new DAOPartido();
+
+        operacionesEquipo.insertarEquipo(new Equipo("Atletico de Madrid", "Madrid"));
 
 
     }
+
+
+}
