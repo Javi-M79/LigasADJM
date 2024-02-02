@@ -33,7 +33,9 @@ import java.io.Serializable;
 
 public class Equipo implements Serializable {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_equipo")
     private int id;
     @Column(name = "nombre_equipo")
