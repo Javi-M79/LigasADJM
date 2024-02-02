@@ -1,9 +1,10 @@
 package database;
 
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.io.File;
+
 
 public class HibernateUtil {
 
@@ -14,7 +15,7 @@ public class HibernateUtil {
         try {
             // Creamos es SessionFactory desde el fichero hibernate.cfg.xml 
             sessionFactory = new Configuration()
-                .configure(new File("hibernate.cfg.xml")).buildSessionFactory();
+                    .configure().buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Error en la inicialización.  " + ex);
             throw new ExceptionInInitializerError(ex);
@@ -22,6 +23,7 @@ public class HibernateUtil {
     }
 
     public static SessionFactory getSessionFactory() {
+
         return sessionFactory;
     }
 }

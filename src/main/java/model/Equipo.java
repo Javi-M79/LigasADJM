@@ -44,7 +44,7 @@ public class Equipo implements Serializable {
     @Column
     private String ciudad;
 
-    //CONSTRUCTOR SIN ID. YA QUE ES PRIMARY KEY Y ESTA EN LA DB DE MAENAR INCREMENTARL
+    //CONSTRUCTOR SIN ID. YA QUE ES PRIMARY KEY Y ESTA EN LA DB DE MANERA INCREMENTAL
     public Equipo(String nombre, String ciudad) {
         this.nombre = nombre;
         this.ciudad = ciudad;

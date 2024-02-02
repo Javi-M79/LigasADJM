@@ -27,14 +27,17 @@ public class Partido implements Serializable {
     @Id
     @Column(name = "id_partido")
     private int id;
+
     @Column(name = "fecha_partido")
-    private Date fechaPartido;
+    private String fechaPartido;
+
     @Column(name = "goles_local")
     private int golesLocal;
+
     @Column(name = "goles_visitante")
     private int golesVisitante;
 
-    public Partido(Date fechaPartido, int golesLocal, int golesVisitante){
+    public Partido(String fechaPartido, int golesLocal, int golesVisitante){
 
         this.fechaPartido=fechaPartido;
         this.golesLocal= golesLocal;
