@@ -18,6 +18,10 @@ public class Main {
         DAOPartido operacionesPartido = new DAOPartido();
 
         operacionesEquipo.insertarEquipo(new Equipo("Atletico de Madrid", "Madrid"));
+        operacionesEquipo.insertarEquipo(new Equipo("Real Madrid", "Madrid"));
+        operacionesEquipo.insertarEquipo(new Equipo("Rayo Vallecano", "Madrid"));
+        operacionesEquipo.insertarEquipo(new Equipo("Girona F.C", "Girona"));
+
 
 
     }

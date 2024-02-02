@@ -10,6 +10,8 @@
     <property name="current_session_context_class">thread</property>
     <mapping class="model.Partido" />
     <mapping class="model.Liga" />
+    <mapping class="model.Partido" />
+    <mapping class="model.Equipo" />
 
     </session-factory>
 </hibernate-configuration>
