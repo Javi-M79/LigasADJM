@@ -4,6 +4,7 @@ package controller;
 //ESTAS CLASES GESTIONAL LAS OPERACIONES QUE PODEMOS HACER CON CADA UNA DE LAS CLASES PRINCIPALES
 
 import database.HibernateUtil;
+import model.Partido;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -20,7 +21,19 @@ public class DAOPartido {
 
     }
 
+    //En insertar partido necesitamos que haya dos equipos (y una liga?)
+    public void insertarPartido(Partido partido) {
 
+
+        Session session = sessionFactory.openSession();
+
+        session.beginTransaction();
+        session.persist(partido);
+        session.getTransaction().commit();
+        session.close();
+
+
+    }
 
 
 }

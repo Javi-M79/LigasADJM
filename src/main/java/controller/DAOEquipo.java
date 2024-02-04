@@ -20,8 +20,8 @@ public class DAOEquipo {
     public void insertarEquipo(Equipo equipo) {
 
         //Creamos una sesion
-        Session session = sessionFactory.getCurrentSession();
-        //Persisitimos
+        Session session = sessionFactory.openSession();
+
 
         session.beginTransaction();
         session.persist(equipo);
