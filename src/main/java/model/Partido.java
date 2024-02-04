@@ -35,14 +35,20 @@ public class Partido implements Serializable {
     @Column(name = "goles_visitante")
     private int golesVisitante;
 
-    public Partido(String fechaPartido, int golesLocal, int golesVisitante){
+    public Partido(String fechaPartido, int golesLocal, int golesVisitante) {
 
-        this.fechaPartido=fechaPartido;
-        this.golesLocal= golesLocal;
-        this.golesVisitante= golesVisitante;
+        this.fechaPartido = fechaPartido;
+        this.golesLocal = golesLocal;
+        this.golesVisitante = golesVisitante;
 
 
     }
+
+    //METODOS A CREAR
+    //JUGAR PARTIDO. fECHA, DOS EQUIPOS Y RESULTADO (RANDOM)
+    // MOSTRAR PARTIDOS. CALENDARIO.
+
+
 
 
 }
