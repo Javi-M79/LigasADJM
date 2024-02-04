@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +30,9 @@ public class Liga implements Serializable {
     private String fechaInicio;
     @Column(name = "fecha_fin")
     private String fechaFin;
+
+    @OneToMany(mappedBy = "idLiga", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private ArrayList<Equipo> listaEquipos ;
 
 
     public Liga(String nombre, String fechaInicio, String fechaFin) {
