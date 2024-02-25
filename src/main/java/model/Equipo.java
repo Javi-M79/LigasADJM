@@ -72,7 +72,8 @@ public class Equipo implements Serializable {
     public void mostrarDatosEquipo(){
         System.out.println("Nombre Equipo: " + getNombre() +
                 "\nCiudad: " + getCiudad() +
-                "\nLiga: "+ getIdLiga().getId());
+                "\nNombre Liga: " + getIdLiga().getNombre()+
+                "\nId Liga: "+ getIdLiga().getId());
     }
 
 }
