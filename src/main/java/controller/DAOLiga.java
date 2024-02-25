@@ -1,6 +1,7 @@
 package controller;
 
 import database.HibernateUtil;
+import jakarta.persistence.Query;
 import model.Equipo;
 import model.Liga;
 import org.hibernate.Session;
@@ -12,7 +13,7 @@ import java.util.List;
 public class DAOLiga {
 
     private SessionFactory sessionFactory;
-//    private ArrayList<Liga> listaLigas = new ArrayList<>();
+    private List<Liga> listaLigas = new ArrayList<>();
 
 
     public DAOLiga() {
@@ -24,35 +25,26 @@ public class DAOLiga {
     public void insertarLiga(Liga liga) {
 
         Session session = sessionFactory.openSession();
-
-
         session.beginTransaction();
-
         session.persist(liga);
-
+        listaLigas.add(liga);
         session.getTransaction().commit();
-
         session.close();
 
     }
 
-
-    //METODO AÑADIR EQUIPOS A UNA LIGA
-
-    public void añadirEquipo(Equipo equipo, Liga liga) {
-
+    public void verEquiposliga(String nombreLiga){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        equipo.setIdLiga(liga);
-        session.persist(equipo);
+
+        Liga liga = session.createNativeQuery("Select * From ligas where nombre_liga = '" + nombreLiga+"'"  , Liga.class).list().get(0);
         session.getTransaction().commit();
+
+        List<Equipo> equipos =  liga.getListaEquipos();
+        for ( Equipo e : equipos ) {
+            e.mostrarDatosEquipo();
+        }
         session.close();
-
-
-
     }
-
-
-
 
 }

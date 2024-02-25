@@ -13,11 +13,9 @@ Para ello deben tener:
 
 import controller.DAOLiga;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.engine.internal.Cascade;
+
 import java.io.Serializable;
 
 
@@ -26,6 +24,8 @@ import java.io.Serializable;
 @AllArgsConstructor // CONSTRUCTOR CON TODOS LOS PARAMETROS.
 @Getter // TODOS LOS GETTERS
 @Setter //TODOS LO SETTERS
+
+
 
 //INDICAMOS QUE LA CLASE ES UNA ENTIDAD QUE REPRESENTA UNA TUPLA DE DATOS EN LA DB.
 @Entity
@@ -46,17 +46,12 @@ public class Equipo implements Serializable {
     @Embedded
     private DatosEquipo datosEquipo;
 
-    //TODO REVISAR RELACIONES ENTRE TABLAS.
+
 
     //Una liga puede tener muchos equipos, y un equipo solo puede jugar en una liga.
-    @ManyToOne (cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_liga", foreignKey = @ForeignKey(name = "id_liga"))
     private Liga idLiga;
-
-
-
-
-
 
 
     //CONSTRUCTOR SIN ID. YA QUE ES PRIMARY KEY Y ESTA EN LA DB DE MANERA INCREMENTAL
@@ -66,16 +61,18 @@ public class Equipo implements Serializable {
         this.ciudad = ciudad;
 
     }
+
     public Equipo(String nombre, String ciudad, DatosEquipo datosEquipo) {
         this.nombre = nombre;
         this.ciudad = ciudad;
-        this.datosEquipo=datosEquipo;
+        this.datosEquipo = datosEquipo;
     }
 
-    public Equipo(String nombre, String ciudad, DAOLiga ligaCreada) {
-        this.nombre = nombre;
-        this.ciudad = ciudad;
-        this.idLiga = idLiga;
 
+    public void mostrarDatosEquipo(){
+        System.out.println("Nombre Equipo: " + getNombre() +
+                "\nCiudad: " + getCiudad() +
+                "\nLiga: "+ getIdLiga().getId());
     }
+
 }
