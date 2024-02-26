@@ -50,7 +50,11 @@ public class Liga implements Serializable {
 
     }
 
+//METODO LISTAR EQUIPOS
+    // TODO
 
+//METODO LISTAR PARTIDOS
+    // TODO
 
 
     @Override
