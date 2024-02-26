@@ -13,38 +13,31 @@ import java.util.List;
 public class DAOLiga {
 
     private SessionFactory sessionFactory;
-    private List<Liga> listaLigas = new ArrayList<>();
+
 
 
     public DAOLiga() {
-
         sessionFactory = HibernateUtil.getSessionFactory();
-
     }
 
+    //CREAR UNA LIGA
     public void insertarLiga(Liga liga) {
-
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.persist(liga);
-        listaLigas.add(liga);
-        session.getTransaction().commit();
-        session.close();
-
-    }
-
-    public void verEquiposliga(String nombreLiga){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Liga liga = session.createNativeQuery("Select * From ligas where nombre_liga = '" + nombreLiga+"'"  , Liga.class).list().get(0);
-        session.getTransaction().commit();
+        Query query = session.createQuery("FROM Liga WHERE nombre = :nombre");
+        query.setParameter("nombre", liga.getNombre());
+        List<Liga> ligasCreadas = query.getResultList();
 
-        List<Equipo> equipos =  liga.getListaEquipos();
-        for ( Equipo e : equipos ) {
-            e.mostrarDatosEquipo();
+        if (ligasCreadas.isEmpty()) {
+            session.persist(liga);
+            session.getTransaction().commit();
+            System.out.println("Liga creada con exito.");
+        } else {
+            System.out.println("La liga ya existe.");
         }
         session.close();
     }
+
 
 }
