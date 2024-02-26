@@ -14,7 +14,6 @@ import java.util.List;
 @Setter
 
 
-
 @Entity
 @Table(name = "ligas")
 public class Liga implements Serializable {
@@ -24,17 +23,25 @@ public class Liga implements Serializable {
     @Column(name = "id_liga")
     private int id;
 
-
     @Column(name = "nombre_liga")
     private String nombre;
+
     @Column(name = "fecha_inicio")
     private String fechaInicio;
+
     @Column(name = "fecha_fin")
     private String fechaFin;
 
-    //El mapeo lo relaciona con el atributo id Liga del objeto liga que hemos creado en Equipo.
-    @OneToMany(mappedBy = "idLiga", cascade = CascadeType.ALL)
-    private List<Equipo> listaEquipos = new ArrayList<>();
+
+    //RELACION CON EQUIPO
+    //El mapeo lo relaciona con el  objeto liga que hemos creado en Equipo.
+    @OneToMany(mappedBy = "liga", cascade = CascadeType.ALL)
+    private List<Equipo> equipos = new ArrayList<>();
+
+    //RELACION CON PARTIDOS
+    @OneToMany(mappedBy = "liga")
+    private List<Partido> partidosLiga = new ArrayList<>();
+
     public Liga(String nombre, String fechaInicio, String fechaFin) {
 
         this.nombre = nombre;
@@ -43,4 +50,17 @@ public class Liga implements Serializable {
 
     }
 
+
+
+
+    @Override
+    public String toString() {
+        return "Liga{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", fechaInicio='" + fechaInicio + '\'' +
+                ", fechaFin='" + fechaFin + '\'' +
+                ", equipos=" + equipos +
+                '}';
+    }
 }

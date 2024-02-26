@@ -35,6 +35,29 @@ public class Partido implements Serializable {
     @Column(name = "goles_visitante")
     private int golesVisitante;
 
+
+    //RELACION EQUIPO LOCAL.
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_local", foreignKey = @ForeignKey(name = "id_equipo"))
+    private Equipo equipoLocal;
+
+    //RELACION EQUIPO VISITANTE
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_visitante", foreignKey = @ForeignKey(name = "id_equipo"))
+    private Equipo equipoVisitante;
+
+   //RELACION LIGA
+
+    // Relación con la clase Liga para la liga a la que pertenece el partido.
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_liga", foreignKey = @ForeignKey(name = "id_liga"))
+    private Liga liga;
+
+
+
+
     public Partido(String fechaPartido, int golesLocal, int golesVisitante) {
 
         this.fechaPartido = fechaPartido;
@@ -49,6 +72,16 @@ public class Partido implements Serializable {
     // MOSTRAR PARTIDOS. CALENDARIO.
 
 
-
-
+    @Override
+    public String toString() {
+        return "Partido{" +
+                "id=" + id +
+                ", fechaPartido='" + fechaPartido + '\'' +
+                ", golesLocal=" + golesLocal +
+                ", golesVisitante=" + golesVisitante +
+                ", equipoLocal=" + equipoLocal +
+                ", equipoVisitante=" + equipoVisitante +
+                ", liga=" + liga +
+                '}';
+    }
 }
