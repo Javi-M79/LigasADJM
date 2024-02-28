@@ -6,11 +6,10 @@ import model.Equipo;
 import model.Liga;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import controller.DAOLiga;
 
 import java.util.List;
 
-public class DAOEquipo extends DAOLiga {
+public class DAOEquipo {
 
     private final SessionFactory sessionFactory;
 
@@ -20,16 +19,13 @@ public class DAOEquipo extends DAOLiga {
 
     }
 
-    //METODO DE INSERCION DE UN EQUIPO
+    //METODO DE INSERCION DE UN EQUIPO SIN LIGA.
 
     public void insertarEquipo(Equipo equipo) {
-
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-
         //Comprobamos si el equipo existe.
-
-        Query query = session.createQuery("FROM Equipo WHERE nombre = :nombre");
+        Query query = session.createQuery("FROM Equipo WHERE nombre = :nombre", Equipo.class);
         query.setParameter("nombre", equipo.getNombre());
         List<Equipo> equiposCreados = query.getResultList();
         //Si no existe lo creo.
@@ -43,21 +39,73 @@ public class DAOEquipo extends DAOLiga {
         session.close();
     }
 
-    //OBTENER EQUIPO
+    //OBTENER EQUiPOS DE LA BASE DE DATOS.
+    public void listaEquipos() {
 
-    public void getEquipos() {
-
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query = session.createQuery("Select e from Equipo e");
-        List<Equipo> equipo = (List<Equipo>) ((org.hibernate.query.Query<?>) query).list();
+        Query query = session.createQuery("Select e from Equipo e", Equipo.class);
+        List<Equipo> equipos = query.getResultList();
 
-        for (Equipo e : equipo
+        for (Equipo e : equipos) {
+            System.out.println("- ID Equipo: " + e.getId());
+            System.out.println("    - Nombre: " + e.getNombre());
+            System.out.println("    - Ciudad: " + e.getCiudad());
+            System.out.println("    - Liga: " + e.getLiga().getNombre());
+        }
+        session.getTransaction().commit();
+        session.close();
+
+    }
+
+    //BUSQUEDA UN SOLO EQUIPO POR NOMBRE.
+    public void getEquipo(String nombre) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("Select e from Equipo e WHERE nombre= :nombre", Equipo.class)
+                .setParameter("nombre", nombre);
+
+        Equipo equipo = (Equipo) query.getSingleResult();
+
+        if (equipo != null) {
+            System.out.println("- ID Equipo: " + equipo.getId());
+            System.out.println("    - Nombre: " + equipo.getNombre());
+            System.out.println("    - Ciudad: " + equipo.getCiudad());
+            System.out.println("    - Liga: " + equipo.getLiga().getNombre());
+
+        }
+
+        List<Equipo> equipos = query.getResultList();
+
+        for (Equipo e : equipos
         ) {
-            System.out.println(e.getId());
-            System.out.println(e.getNombre());
-            System.out.println(e.getCiudad());
-            System.out.println(e.getLiga());
+            System.out.println("- ID Equipo: " + e.getId());
+            System.out.println("    - Nombre: " + e.getNombre());
+            System.out.println("    - Ciudad: " + e.getCiudad());
+            System.out.println("    - Liga: " + e.getLiga().getNombre());
+        }
+
+        session.getTransaction().commit();
+        session.close();
+
+
+    }//BUSQUEDA UN SOLO EQUIPO POR ID.
+
+    public void getEquipoId(int id) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("Select e from Equipo e WHERE id= :id", Equipo.class)
+                .setParameter("id", id);
+        List<Equipo> equiposId = query.getResultList();
+        for (Equipo e : equiposId
+        ) {
+
+            System.out.println("- Nombre: " + e.getNombre());
+            System.out.println("- Ciudad: " + e.getCiudad());
+            System.out.println("- Liga: " + e.getLiga().getNombre());
         }
 
         session.getTransaction().commit();
@@ -69,48 +117,67 @@ public class DAOEquipo extends DAOLiga {
 
     //AÑADIR EQUIPOS A LIGA
     public void equipoALiga(Equipo equipo, Liga liga) {
-
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        //Comprobamos que el equipo exista si no exiate lo crea.
 
+//Comprobamos si la liga existe
+        Query queryLiga = session.createQuery("FROM Liga WHERE nombre = :nombre");
+        queryLiga.setParameter("nombre", liga.getNombre());
+        List<Liga> ligasCreadas = queryLiga.getResultList();
 
-        insertarEquipo(equipo);
-        insertarLiga(liga);
-
-
-        if (equipo.getLiga() != null) {
-            System.out.println("El equipo ya pertenece una liga.");
-            session.getTransaction().rollback();
-            session.close();
+        if (ligasCreadas.isEmpty()) {
+            session.persist(liga);
+            System.out.println("Liga " + liga.getNombre() + " creada con exito.");
         } else {
+            liga = ligasCreadas.get(0);
+            System.out.println("La liga ya existe.");
+        }
+        //Comprobamos que el equipo exista
+        Query query = session.createQuery("FROM Equipo WHERE nombre = :nombre", Equipo.class);
+        query.setParameter("nombre", equipo.getNombre());
+        List<Equipo> equiposCreados = query.getResultList();
+        //Si no existe lo creo y le añado la liga
+        if (equiposCreados.isEmpty()) {
+
             equipo.setLiga(liga);
-            session.persist(equipo);
-            session.getTransaction().commit();
-            session.close();
+            session.persist(equipo); //Al persistir el equipo crea una nueva liga.
+
+            System.out.println("Equipo creado con exito y asignado a la liga: " + liga.getNombre());
+        } else {
+            System.out.println("El equipo ya existe en la base de datos.");
         }
+
+        session.getTransaction().commit();
+        session.close();
     }
 
-    //COMPROBAR SI EL EQUIPO EXISTE
-    public void comprobarEquipo(Equipo equipo) {
 
+    public void borrarEquipo(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query = session.createQuery("FROM e equipos e ");
-        List<Equipo> equipos = query.getResultList(); //No me funciona el metodo List.
+        Query query = session.createQuery("delete from Equipo e WHERE e.id = :id")
+                .setParameter("id", id);
 
-        if (equipos.isEmpty()) {
-
-            session.persist(equipo);
-            session.getTransaction().commit();
-            session.close();
-            System.out.println("Equipo creado con exito.");
-        } else {
-            System.out.println("El equipo ya existe en la Base de Datos.");
+        //Executeupdate(); Nos devuelve un numero que hace referencia al numero de filas que ha borrado.
+        int equipoBorrado = query.executeUpdate();
+        if (equipoBorrado == 0) {
+            System.out.println("El equipo con ID: " + id + " no existe.");
+        }else{
+            System.out.println("Equipo con ID: " + id + " ha sido borrado con exito.");
 
         }
 
+        session.getTransaction().commit();
+        session.close();
+
 
     }
-
 }
+
+
+
+
+
+
+
+
