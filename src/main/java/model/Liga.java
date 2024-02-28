@@ -35,8 +35,9 @@ public class Liga implements Serializable {
 
     //RELACION CON EQUIPO
     //El mapeo lo relaciona con el  objeto liga que hemos creado en Equipo.
+    @Getter
     @OneToMany(mappedBy = "liga", cascade = CascadeType.ALL)
-    private List<Equipo> equipos = new ArrayList<>();
+    private List<Equipo> listaEquipos = new ArrayList<>();
 
     //RELACION CON PARTIDOS
     @OneToMany(mappedBy = "liga")
@@ -50,11 +51,6 @@ public class Liga implements Serializable {
 
     }
 
-//METODO LISTAR EQUIPOS
-    // TODO
-
-//METODO LISTAR PARTIDOS
-    // TODO
 
 
     @Override
@@ -62,9 +58,8 @@ public class Liga implements Serializable {
         return "Liga{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", fechaInicio='" + fechaInicio + '\'' +
-                ", fechaFin='" + fechaFin + '\'' +
-                ", equipos=" + equipos +
+                ", fecha Inicio='" + fechaInicio + '\'' +
+                ", fecha Fin='" + fechaFin + '\'' +
                 '}';
     }
 }
