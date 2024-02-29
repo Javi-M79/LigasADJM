@@ -122,9 +122,9 @@ public class DAOPartido {
             System.out.println("Fecha: " + p.getFechaPartido());
             System.out.println("Resultado: " + p.getEquipoLocal().getNombre() + " " + p.getGolesLocal() + " - " + p.getEquipoVisitante().getNombre() + " " + p.getGolesVisitante());
             if (p.getGolesLocal() > p.getGolesVisitante()) {
-                System.out.println("Ganador " + p.getEquipoLocal().getNombre());
+                System.out.println("Ganador: " + p.getEquipoLocal().getNombre());
             } else {
-                System.out.println("Ganador " + p.getEquipoVisitante().getNombre());
+                System.out.println("Ganador: " + p.getEquipoVisitante().getNombre());
             }
 
         }

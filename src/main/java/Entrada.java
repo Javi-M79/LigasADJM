@@ -37,18 +37,18 @@ public class Entrada {
 
         //CREAR UN A LIGA
 
-        operacionesLigas.insertarLiga(new Liga("Liga EA Sports ", "Agosto", "Mayo"));
+//        operacionesLigas.insertarLiga(new Liga("Liga EA Sports ", "Agosto", "Mayo"));
 
         //CREAR 8 EQUIPOS
 
-        operacionesEquipo.insertarEquipo(new Equipo("Real Madrid", "Madrid"));
-        operacionesEquipo.insertarEquipo(new Equipo("Atletico de Madrid", "Madrid"));
-        operacionesEquipo.insertarEquipo(new Equipo("F.C Barcelona", "Barcelona"));
-        operacionesEquipo.insertarEquipo(new Equipo("Girona", "Girona"));
-        operacionesEquipo.insertarEquipo(new Equipo("Celta de Vigo", " Vigo"));
-        operacionesEquipo.insertarEquipo(new Equipo("Almeria CF", "Almeria"));
-        operacionesEquipo.insertarEquipo(new Equipo("Atlethic de Bilbao", "Bilbao"));
-        operacionesEquipo.insertarEquipo(new Equipo("Real Sociedad", "San Senbastian"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Real Madrid", "Madrid"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Atletico de Madrid", "Madrid"));
+//        operacionesEquipo.insertarEquipo(new Equipo("F.C Barcelona", "Barcelona"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Girona", "Girona"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Celta de Vigo", " Vigo"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Almeria CF", "Almeria"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Atlethic de Bilbao", "Bilbao"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Real Sociedad", "San Senbastian"));
 
 
         //AÑADIR LOS EQUIPOS A UNA LIGA
@@ -58,20 +58,20 @@ public class Entrada {
 //        operacionesEquipo.equipoALiga(new Equipo("Manchester United", "Manchester"), new Liga("Premier League", "Enero","Diciembre"));
 
         //Equipos existentes a los que solo se les inscribe en una liga a traves de su ID.
-//        operacionesEquipo.equipoALigaporId();
-//        operacionesEquipo.equipoALigaporId();
-//        operacionesEquipo.equipoALigaporId();
-//        operacionesEquipo.equipoALigaporId();
-
+//        operacionesEquipo.equipoALigaporId(99,80);
+//        operacionesEquipo.equipoALigaporId(100,80);
+//        operacionesEquipo.equipoALigaporId(101,80);
+//        operacionesEquipo.equipoALigaporId(102,80);
+//
 
         //CREAR 6 PARTIDOS
 //
-//        operacionesPartido.insertarPartido("2024-8-15" , 90, 91);
-//        operacionesPartido.insertarPartido("2024-8-15" , 92, 93);
-//        operacionesPartido.insertarPartido("2024-8-16" , 94, 95);
-//        operacionesPartido.insertarPartido("2024-9-02" , 96, 97);
-//        operacionesPartido.insertarPartido("2024-9-03" , 90, 97);
-//        operacionesPartido.insertarPartido("2024-9-03" , 90, 98);
+//        operacionesPartido.insertarPartido("2024-8-15" , 99, 100);
+//        operacionesPartido.insertarPartido("2024-8-15" , 101, 102);
+//        operacionesPartido.insertarPartido("2024-8-16" , 103, 104);
+//        operacionesPartido.insertarPartido("2024-9-02" , 105, 106);
+//        operacionesPartido.insertarPartido("2024-9-03" , 99, 102);
+//        operacionesPartido.insertarPartido("2024-9-03" , 101, 100);
 
 
         //MOSTRAR DATOS DE TODOS LOS EQUIPOS
@@ -80,13 +80,19 @@ public class Entrada {
 
         //ELIMINAR DOS EQUIPOS
 //
-//        operacionesEquipo.borrarEquipo(90);
-//        operacionesEquipo.borrarEquipo(91);
+
+        //Debemos borrar primero los partidos en los que estan involucrados
+
+//        operacionesPartido.borrarPartido(12);
+
+//
+//        operacionesEquipo.borrarEquipo(105);
+//        operacionesEquipo.borrarEquipo(106);
 
 
         //MOSTRAR PARTIDOS DE UNA LIGA CONCRETA
 
-//        operacionesPartido.partidosLiga();
+        operacionesPartido.partidosLiga(80);
 
 
     }
