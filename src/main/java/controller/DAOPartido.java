@@ -137,7 +137,7 @@ public class DAOPartido {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("DELETE p FROM Partido p WHERE id= :id")
+        Query query = session.createQuery("DELETE FROM Partido p WHERE p.id= :id")
                 .setParameter("id", id);
 
         int borrarPartido = query.executeUpdate();

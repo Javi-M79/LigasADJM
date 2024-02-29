@@ -39,13 +39,13 @@ public class Partido implements Serializable {
     //RELACION EQUIPO LOCAL.
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_local", foreignKey = @ForeignKey(name = "id_equipo"))
+    @JoinColumn(name = "id_local", foreignKey = @ForeignKey(name = "id_equipolocal"))
     private Equipo equipoLocal;
 
     //RELACION EQUIPO VISITANTE
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_visitante", foreignKey = @ForeignKey(name = "id_equipo"))
+    @JoinColumn(name = "id_visitante", foreignKey = @ForeignKey(name = "id_equipovisitante"))
     private Equipo equipoVisitante;
 
    //RELACION LIGA
@@ -79,9 +79,9 @@ public class Partido implements Serializable {
                 ", fechaPartido='" + fechaPartido + '\'' +
                 ", golesLocal=" + golesLocal +
                 ", golesVisitante=" + golesVisitante +
-                ", equipoLocal=" + equipoLocal +
-                ", equipoVisitante=" + equipoVisitante +
-                ", liga=" + liga +
+                ", equipoLocal=" + equipoLocal.getNombre() +
+                ", equipoVisitante=" + equipoVisitante.getNombre() +
+                ", liga=" + liga.getNombre() +
                 '}';
     }
 }
