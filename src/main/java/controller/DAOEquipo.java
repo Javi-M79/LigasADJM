@@ -41,27 +41,22 @@ public class DAOEquipo {
 
     //OBTENER EQUiPOS DE LA BASE DE DATOS.
     public void listaEquipos() {
-
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query = session.createQuery("Select e from Equipo e", Equipo.class);
         List<Equipo> equipos = query.getResultList();
 
-
         for (Equipo e : equipos) {
-
-
             if (e.getLiga() != null) {
                 System.out.println("- ID Equipo: " + e.getId());
                 System.out.println("    - Nombre: " + e.getNombre());
                 System.out.println("    - Ciudad: " + e.getCiudad());
                 System.out.println("    - Liga: " + e.getLiga().getNombre());
                 //SI ALGUN EQUIPO NO TIENE LIGA LO MOSTRAMOS SIN ELLA
-            }else {
+            } else {
                 System.out.println("- ID Equipo: " + e.getId());
                 System.out.println("    - Nombre: " + e.getNombre());
                 System.out.println("    - Ciudad: " + e.getCiudad());
-
             }
         }
         session.getTransaction().commit();
@@ -81,33 +76,30 @@ public class DAOEquipo {
         Equipo equipo = (Equipo) query.getSingleResult();
 
         if (equipo != null) {
-            System.out.println("- ID Equipo: " + equipo.getId());
-            System.out.println("    - Nombre: " + equipo.getNombre());
-            System.out.println("    - Ciudad: " + equipo.getCiudad());
-            System.out.println("    - Liga: " + equipo.getLiga().getNombre());
+            //SI ESTA INSCRITO EN UNA LIGA.
+            if (equipo.getLiga() != null) {
+                System.out.println("- ID Equipo: " + equipo.getId());
+                System.out.println("    - Nombre: " + equipo.getNombre());
+                System.out.println("    - Ciudad: " + equipo.getCiudad());
+                System.out.println("    - Liga: " + equipo.getLiga().getNombre());
 
+            } else {
+                System.out.println("- ID Equipo: " + equipo.getId());
+                System.out.println("    - Nombre: " + equipo.getNombre());
+                System.out.println("    - Ciudad: " + equipo.getCiudad());
+                System.out.println("    - Todavia no esta inscrito en ninguna liga.");
+            }
+        } else {
+            System.out.println("El equipo no existe.");
         }
-
-        List<Equipo> equipos = query.getResultList();
-
-        for (Equipo e : equipos
-        ) {
-            System.out.println("- ID Equipo: " + e.getId());
-            System.out.println("    - Nombre: " + e.getNombre());
-            System.out.println("    - Ciudad: " + e.getCiudad());
-            System.out.println("    - Liga: " + e.getLiga().getNombre());
-        }
-
         session.getTransaction().commit();
         session.close();
-
 
     }
 
     //BUSQUEDA UN SOLO EQUIPO POR ID.
 
     public void getEquipoId(int id) {
-
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query = session.createQuery("Select e from Equipo e WHERE id= :id", Equipo.class)
@@ -122,7 +114,7 @@ public class DAOEquipo {
                 System.out.println("    - Ciudad: " + e.getCiudad());
                 System.out.println("    - Liga: " + e.getLiga().getNombre());
                 //SI ALGUN EQUIPO NO TIENE LIGA LO MOSTRAMOS SIN ELLA
-            }else {
+            } else {
                 System.out.println("- ID Equipo: " + e.getId());
                 System.out.println("    - Nombre: " + e.getNombre());
                 System.out.println("    - Ciudad: " + e.getCiudad());
@@ -135,8 +127,6 @@ public class DAOEquipo {
 
 
     }
-
-
 
     //AÑADIR EQUIPOS A LIGA
     public void equipoALiga(Equipo equipo, Liga liga) {
@@ -151,7 +141,7 @@ public class DAOEquipo {
         if (ligasCreadas.isEmpty()) {
             session.persist(liga);
             System.out.println("Liga " + liga.getNombre() + " creada con exito.");
-        }else{
+        } else {
             liga = ligasCreadas.getFirst();
         }
         //Comprobamos que el equipo exista
@@ -179,6 +169,8 @@ public class DAOEquipo {
         session.close();
     }
 
+    //ASIGNAR EQUIPOS A UNA LIGA POR SU ID
+
     public void equipoALigaporId(int idEquipo, int idLiga) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -197,11 +189,12 @@ public class DAOEquipo {
         query.setParameter("id", idEquipo);
         List<Equipo> equiposCreados = query.getResultList();
 
-         if (equiposCreados.isEmpty()) {
-            System.out.println("El equipo con el ID: " + idEquipo + " no existe." );
+        if (equiposCreados.isEmpty()) {
+            System.out.println("El equipo con el ID: " + idEquipo + " no existe.");
         } else {
             Equipo equipo = equiposCreados.getFirst();
 
+            //SI NO TIENE ASIGNADA UN ALIGA SE LA ASIGNAMOS.
             if (equipo.getLiga() == null) {
                 equipo.setLiga(ligasCreadas.getFirst());
                 session.persist(equipo);
@@ -212,6 +205,7 @@ public class DAOEquipo {
         session.close();
     }
 
+    //BORRAR EQUIPO POR ID
     public void borrarEquipo(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -222,7 +216,7 @@ public class DAOEquipo {
         int equipoBorrado = query.executeUpdate();
         if (equipoBorrado == 0) {
             System.out.println("El equipo con ID: " + id + " no existe.");
-        }else{
+        } else {
             System.out.println("Equipo con ID: " + id + " ha sido borrado con exito.");
 
         }
