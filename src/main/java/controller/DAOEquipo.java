@@ -102,7 +102,9 @@ public class DAOEquipo {
         session.close();
 
 
-    }//BUSQUEDA UN SOLO EQUIPO POR ID.
+    }
+
+    //BUSQUEDA UN SOLO EQUIPO POR ID.
 
     public void getEquipoId(int id) {
 
@@ -111,12 +113,21 @@ public class DAOEquipo {
         Query query = session.createQuery("Select e from Equipo e WHERE id= :id", Equipo.class)
                 .setParameter("id", id);
         List<Equipo> equiposId = query.getResultList();
-        for (Equipo e : equiposId
-        ) {
 
-            System.out.println("- Nombre: " + e.getNombre());
-            System.out.println("- Ciudad: " + e.getCiudad());
-            System.out.println("- Liga: " + e.getLiga().getNombre());
+        for (Equipo e : equiposId) {
+
+            if (e.getLiga() != null) {
+                System.out.println("- ID Equipo: " + e.getId());
+                System.out.println("    - Nombre: " + e.getNombre());
+                System.out.println("    - Ciudad: " + e.getCiudad());
+                System.out.println("    - Liga: " + e.getLiga().getNombre());
+                //SI ALGUN EQUIPO NO TIENE LIGA LO MOSTRAMOS SIN ELLA
+            }else {
+                System.out.println("- ID Equipo: " + e.getId());
+                System.out.println("    - Nombre: " + e.getNombre());
+                System.out.println("    - Ciudad: " + e.getCiudad());
+
+            }
         }
 
         session.getTransaction().commit();
@@ -124,8 +135,6 @@ public class DAOEquipo {
 
 
     }
-
-
 
 
 
