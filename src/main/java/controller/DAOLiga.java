@@ -59,7 +59,7 @@ public class DAOLiga {
     }
 
     // OBTENER LIGA POR NOMBRE
-    public void getLiga(String nombre) {
+    public void getLigaNombre(String nombre) {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
