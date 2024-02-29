@@ -47,11 +47,22 @@ public class DAOEquipo {
         Query query = session.createQuery("Select e from Equipo e", Equipo.class);
         List<Equipo> equipos = query.getResultList();
 
+
         for (Equipo e : equipos) {
-            System.out.println("- ID Equipo: " + e.getId());
-            System.out.println("    - Nombre: " + e.getNombre());
-            System.out.println("    - Ciudad: " + e.getCiudad());
-            System.out.println("    - Liga: " + e.getLiga().getNombre());
+
+
+            if (e.getLiga() != null) {
+                System.out.println("- ID Equipo: " + e.getId());
+                System.out.println("    - Nombre: " + e.getNombre());
+                System.out.println("    - Ciudad: " + e.getCiudad());
+                System.out.println("    - Liga: " + e.getLiga().getNombre());
+                //SI ALGUN EQUIPO NO TIENE LIGA LO MOSTRAMOS SIN ELLA
+            }else {
+                System.out.println("- ID Equipo: " + e.getId());
+                System.out.println("    - Nombre: " + e.getNombre());
+                System.out.println("    - Ciudad: " + e.getCiudad());
+
+            }
         }
         session.getTransaction().commit();
         session.close();
@@ -115,6 +126,9 @@ public class DAOEquipo {
     }
 
 
+
+
+
     //AÑADIR EQUIPOS A LIGA
     public void equipoALiga(Equipo equipo, Liga liga) {
         Session session = sessionFactory.openSession();
@@ -128,22 +142,27 @@ public class DAOEquipo {
         if (ligasCreadas.isEmpty()) {
             session.persist(liga);
             System.out.println("Liga " + liga.getNombre() + " creada con exito.");
+        }else{
+            liga = ligasCreadas.getFirst();
         }
         //Comprobamos que el equipo exista
 
         Query query = session.createQuery("FROM Equipo WHERE nombre = :nombre", Equipo.class);
         query.setParameter("nombre", equipo.getNombre());
         List<Equipo> equiposCreados = query.getResultList();
+
         //Si no existe lo creo y le añado la liga
+
         if (equiposCreados.isEmpty()) {
             equipo.setLiga(liga);
             session.persist(equipo);
-
             System.out.println("Equipo creado con exito y asignado a la liga: " + liga.getNombre());
+
         } else {
+            equipo = equiposCreados.getFirst();
             if (equipo.getLiga() == null) {
                 equipo.setLiga(liga);
-                session.persist(equipo.getLiga());
+                session.persist(equipo);
                 System.out.println("El equipo se ha actualizado y se ha asigando a la liga.");
             }
         }
@@ -151,6 +170,38 @@ public class DAOEquipo {
         session.close();
     }
 
+    public void equipoALigaporId(int idEquipo, int idLiga) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+//Comprobamos si la liga existe con ese ID
+        Query queryLiga = session.createQuery("FROM Liga WHERE id = :id");
+        queryLiga.setParameter("id", idLiga);
+        List<Liga> ligasCreadas = queryLiga.getResultList();
+
+        if (ligasCreadas.isEmpty()) {
+            System.out.println("La liga con Id " + idLiga + "no existe.");
+        }
+        //Comprobamos que el equipo exista
+
+        Query query = session.createQuery("FROM Equipo WHERE id = :id", Equipo.class);
+        query.setParameter("id", idEquipo);
+        List<Equipo> equiposCreados = query.getResultList();
+
+         if (equiposCreados.isEmpty()) {
+            System.out.println("El equipo con el ID: " + idEquipo + " no existe." );
+        } else {
+            Equipo equipo = equiposCreados.getFirst();
+
+            if (equipo.getLiga() == null) {
+                equipo.setLiga(ligasCreadas.getFirst());
+                session.persist(equipo);
+                System.out.println("El equipo se ha actualizado y se ha asigando a la liga.");
+            }
+        }
+        session.getTransaction().commit();
+        session.close();
+    }
 
     public void borrarEquipo(int id) {
         Session session = sessionFactory.openSession();
