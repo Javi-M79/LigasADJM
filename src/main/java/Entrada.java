@@ -18,8 +18,38 @@ public class Entrada {
         DAOLiga operacionesLigas = new DAOLiga();
         DAOPartido operacionesPartido = new DAOPartido();
 
-        operacionesLigas.insertarLiga(new Liga("Liga EA Sports ", "Agosto", "Mayo"));
-        operacionesEquipo.insertarEquipo(new Equipo("Real Madrid", "Madrid"));
+        Liga liga1 = new Liga("Liga EA Sports ", "Agosto", "Mayo");
+//        Equipo equipo1 = new Equipo("FC Osasuna", "Pamplona");
+//        Equipo equipo2 = new Equipo("Almeria", "Almeria");
+//        operacionesEquipo.equipoALiga(equipo2, liga1);
+//        Equipo equipo3 = new Equipo("Girona FC", "Girona");
+//        Equipo equipo4 = new Equipo("Atletico de Madrid", "Madrid");
+//        Equipo equipo5 = new Equipo("Celta de Vigo", "Vigo");
+//        Equipo equipo6 = new Equipo("Getafe", "Getafe");
+//        Equipo equipo7 = new Equipo("Real Sociedad", "San Sebastian");
+//        Equipo equipo8 = new Equipo("Sevilla", "Sevilla");
+
+
+        for(int i =65; i<10; i++){
+            operacionesEquipo.borrarEquipo(i);
+
+        }
+
+        for(int i =1; i<10; i++){
+            operacionesLigas.borrarLiga(i);
+
+        }
+
+
+
+//        operacionesEquipo.equipoALiga(equipo1, liga1);
+//        operacionesEquipo.equipoALiga(equipo2, liga1);
+//        operacionesEquipo.equipoALiga(equipo3, liga1);
+//        operacionesEquipo.equipoALiga(equipo4, liga1);
+//        operacionesEquipo.equipoALiga(equipo5, liga1);
+//        operacionesEquipo.equipoALiga(equipo6, liga1);
+//        operacionesEquipo.equipoALiga(equipo7, liga1);
+//        operacionesEquipo.equipoALiga(equipo8, liga1);
 
 
 
@@ -71,17 +101,6 @@ public class Entrada {
 //        operacionesLigas.borrarLiga(64);
 //        operacionesLigas.borrarLiga(65);
 //        operacionesLigas.borrarLiga(66);
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

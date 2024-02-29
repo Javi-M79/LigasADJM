@@ -128,25 +128,25 @@ public class DAOEquipo {
         if (ligasCreadas.isEmpty()) {
             session.persist(liga);
             System.out.println("Liga " + liga.getNombre() + " creada con exito.");
-        } else {
-            liga = ligasCreadas.get(0);
-            System.out.println("La liga ya existe.");
         }
         //Comprobamos que el equipo exista
+
         Query query = session.createQuery("FROM Equipo WHERE nombre = :nombre", Equipo.class);
         query.setParameter("nombre", equipo.getNombre());
         List<Equipo> equiposCreados = query.getResultList();
         //Si no existe lo creo y le añado la liga
         if (equiposCreados.isEmpty()) {
-
             equipo.setLiga(liga);
-            session.persist(equipo); //Al persistir el equipo crea una nueva liga.
+            session.persist(equipo);
 
             System.out.println("Equipo creado con exito y asignado a la liga: " + liga.getNombre());
         } else {
-            System.out.println("El equipo ya existe en la base de datos.");
+            if (equipo.getLiga() == null) {
+                equipo.setLiga(liga);
+                session.persist(equipo.getLiga());
+                System.out.println("El equipo se ha actualizado y se ha asigando a la liga.");
+            }
         }
-
         session.getTransaction().commit();
         session.close();
     }
