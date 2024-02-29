@@ -18,7 +18,36 @@ public class Entrada {
         DAOLiga operacionesLigas = new DAOLiga();
         DAOPartido operacionesPartido = new DAOPartido();
 
-        Liga liga1 = new Liga("Liga EA Sports ", "Agosto", "Mayo");
+        //CREAR UN A LIGA
+//        operacionesLigas.insertarLiga(new Liga("Liga EA Sports ", "Agosto", "Mayo"));
+//
+//        //CREAR 8 EQUIPOS
+//        operacionesEquipo.insertarEquipo(new Equipo("Real Madrid", "Madrid"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Atletico de Madrid", "Madrid"));
+//        operacionesEquipo.insertarEquipo(new Equipo("F.C Barcelona", "Barcelona"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Girona", "Girona"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Celta de Vigo", " Vigo"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Almeria CF" ,"Almeria"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Atlethic de Bilbao", "Bilbao"));
+//        operacionesEquipo.insertarEquipo(new Equipo("Real Sociedad", "San Senbastian"));
+//
+//        //AÑADIR NUEVOS EQUIPOS EQUIPOS A UNA LIGA (COMPRUEBA SI EXISTEN AMBOS.
+//
+//        operacionesEquipo.equipoALiga(new Equipo("Cadiz" , "Cadiz"),(new Liga("Liga EA Sports ", "Agosto", "Mayo")));
+
+        //AÑADIR EQUIPOS A UN ALIGA POR ID. COMRPUEBA QUE EXISTAN AMBOS
+
+        operacionesEquipo.equipoALigaporId(80, 74);
+        operacionesEquipo.equipoALigaporId(81, 74);
+
+
+        //OBTENER DATOS DE UNA LIGA POR NOMBRE
+        operacionesLigas.getLigaNombre("Liga EA Sports ");
+        // OBTENER DATOS DE UNA LIGA POR ID
+
+        //OBTENER LISTA DE EQUIPOS
+        operacionesEquipo.listaEquipos();
+
 //        Equipo equipo1 = new Equipo("FC Osasuna", "Pamplona");
 //        Equipo equipo2 = new Equipo("Almeria", "Almeria");
 //        operacionesEquipo.equipoALiga(equipo2, liga1);
@@ -30,16 +59,15 @@ public class Entrada {
 //        Equipo equipo8 = new Equipo("Sevilla", "Sevilla");
 
 
-        for(int i =65; i<10; i++){
-            operacionesEquipo.borrarEquipo(i);
-
-        }
-
-        for(int i =1; i<10; i++){
-            operacionesLigas.borrarLiga(i);
-
-        }
-
+//        for(int i =65; i<10; i++){
+//            operacionesEquipo.borrarEquipo(i);
+//
+//        }
+//
+//        for(int i =1; i<10; i++){
+//            operacionesLigas.borrarLiga(i);
+//
+//        }
 
 
 //        operacionesEquipo.equipoALiga(equipo1, liga1);
@@ -50,7 +78,6 @@ public class Entrada {
 //        operacionesEquipo.equipoALiga(equipo6, liga1);
 //        operacionesEquipo.equipoALiga(equipo7, liga1);
 //        operacionesEquipo.equipoALiga(equipo8, liga1);
-
 
 
 //        operacionesEquipo.insertarEquipo(new Equipo("Atletico de Madrid", "Madrid"));
