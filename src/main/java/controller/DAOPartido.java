@@ -55,10 +55,10 @@ public class DAOPartido {
 
         Partido partido = new Partido(fecha, golesLocal, golesVisitante);
 
-        //SI LOS EQUIPOS EXISTE EL PARTIDO SE PUEDE CREAR, SI NO SE DEBEN AÑADIR A LA BASE DE DATOS.
+        //SI LOS EQUIPOS EXISTEN EL PARTIDO SE PUEDE CREAR, SI NO SE DEBEN AÑADIR A LA BASE DE DATOS.
         if (equipoLocal != null) {
             partido.setEquipoLocal(equipoLocal);
-            partido.setEquipoLocal(equipoLocal);
+
         } else {
             System.out.println(" El equipo local con ID: " + equipoLocal.getId() + " no se encuentra en la base de datos.");
         }
