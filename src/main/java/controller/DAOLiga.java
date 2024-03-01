@@ -179,7 +179,7 @@ public class DAOLiga {
 
 
     //  MODIFICACION NOMBRE LIGAS
-    public void modificarNombreEquipo(int id, String nombre) {
+    public void modificarNombreLiga(int id, String nombre) {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();

@@ -97,7 +97,12 @@ public class Entrada {
 
 //        operacionesEquipo.listaEquipos();
 
-        operacionesEquipo.modificarNombreEquipo(107, "Paris Saint Germain");
+//        operacionesEquipo.modificarNombreEquipo(107, "Paris Saint Germain");
+
+        operacionesLigas.listaLigas();
+        operacionesLigas.modificarNombreLiga(81,"Ligue1 Uber Eats");
+
+//        operacionesLigas.modificarNombreLiga();
 
     }
 
