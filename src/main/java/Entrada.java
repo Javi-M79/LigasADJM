@@ -92,8 +92,12 @@ public class Entrada {
 
         //MOSTRAR PARTIDOS DE UNA LIGA CONCRETA
 
-        operacionesPartido.partidosLiga(80);
+//        operacionesPartido.partidosLiga(80);
 
+
+//        operacionesEquipo.listaEquipos();
+
+        operacionesEquipo.modificarNombreEquipo(107, "Paris Saint Germain");
 
     }
 
