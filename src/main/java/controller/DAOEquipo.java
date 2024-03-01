@@ -226,6 +226,34 @@ public class DAOEquipo {
 
 
     }
+
+
+    //  MODIFICACION NOMBRE EQUIPOS
+    public void modificarNombreEquipo(int id, String nombre) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+
+        Query query = session.createQuery("UPDATE Equipo e set e.nombre = :nombre WHERE e.id = :id")
+                .setParameter("nombre", nombre)
+                .setParameter("id" , id);
+
+        int equipoModificado = query.executeUpdate();
+
+        if(equipoModificado>0){
+
+            System.out.println("Equipo actualizado con exito.");
+        }else {
+            System.out.println("No se ha podido actualizar el equipo.");
+        }
+
+        //En este caso no debemos persistir de nuevo el objeto.
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
 }
 
 
