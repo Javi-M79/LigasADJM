@@ -175,8 +175,35 @@ public class DAOLiga {
         session.getTransaction().commit();
         session.close();
 
-
     }
+
+
+    //  MODIFICACION NOMBRE LIGAS
+    public void modificarNombreEquipo(int id, String nombre) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+
+        Query query = session.createQuery("UPDATE Liga l set l.nombre = :nombre WHERE l.id = :id")
+                .setParameter("nombre", nombre)
+                .setParameter("id" , id);
+
+        int ligaModificada = query.executeUpdate();
+
+        if(ligaModificada>0){
+
+            System.out.println("Liga actualizada con exito.");
+        }else {
+            System.out.println("No se ha podido actualizar el equipo.");        }
+
+        //En este caso no debemos persistir de nuevo el objeto.
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+
 }
 
 
